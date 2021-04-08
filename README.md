@@ -31,3 +31,13 @@ Research has been conducted to understand the following:
 
 ## Conclusions 
 ...
+
+## Resources 
+Learing about strings in python:
+https://docs.python.org/2/reference/lexical_analysis.html#string-literals
+
+Reading a file:
+https://www.pythontutorial.net/python-basics/python-read-text-file/ 
+
+## References
+...
