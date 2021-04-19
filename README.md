@@ -22,6 +22,21 @@ Research has been conducted to understand the following:
 ## Algorithm Explaination
 ...
 
+
+## Independent Research
+This section details the thoughts and troubles the developer faced throughout the creation of this project. Here the developer logs key points that were learned to complete the project as well as answer the questions in the next section. The developers thoughts are detailed below
+
+### Project start and preparation 
+...
+
+### Python basics and file reading 
+...
+
+### Menu Implementation 
+...
+
+
+
 ## Answered Questions
 ### What is a regular expression?
 
@@ -39,5 +54,6 @@ https://docs.python.org/2/reference/lexical_analysis.html#string-literals
 Reading a file:
 https://www.pythontutorial.net/python-basics/python-read-text-file/ 
 
-## References
-...
+Creating a Menu:
+https://www.youtube.com/watch?v=63nw00JqHo0
+
