@@ -24,16 +24,18 @@ Research has been conducted to understand the following:
 
 
 ## Independent Research
-This section details the thoughts and troubles the developer faced throughout the creation of this project. Here the developer logs key points that were learned to complete the project as well as answer the questions in the next section. The developers thoughts are detailed below
+This section details the thoughts and troubles the developer faced throughout the creation of this project. Here the developer logs key points that were learned to complete the project as well as answer the questions in the next section. The developers thoughts are detailed below.
 
-### Project start and preparation 
-...
+#### Project start and preparation 
+In preparation of this project, I made sure to completely understand the tast that has been given to me and started my README.md file to begin an introduction. I gave myself a list of clear aims to achieve whilst I make progress with the rest of this project. In order to gain a firm understanding of the topic, I rewatched lecture content explaining key consepts in relation to the tasks we were given such as understanding finite automata, concepts of formal languages and Turing machines and regular expressions
 
-### Python basics and file reading 
-...
+I also revisited lab content to aid me in completing the coding side of this project. All labs that I've accomplised can be found [here.](https://github.com/OwenKe11y/graph-theory-labs) Following the lecture and lab videos has given me the confidence and skills to start my project however there will be a few key consepts I'll have to figure out on my own in order to produce a well established document and script.
 
-### Menu Implementation 
-...
+#### Python basics and file reading 
+From lab content, the basics of python were explained well and the concept of indenting and running scripts were grasped quite easily. However, in order for my program to meet the requirements for the project brief I would have to learn how to handle files in Python and read them. Using resources online, I learned to successfully read a file into my program and to output the content onto the screen. An issue I came across was when the file would only be read if it was inside the project directory and the input that the program asks of the user cannot be a directory e.g "C:/User/Documents/". For the sake of this project, I had decided that this wasn't a huge issue, as we will be providing our own text document to accompany our project.
+
+#### Menu Implementation 
+After I got reading my file in working, I decided that having a menu for the user to choose from a list of options would suit my program well. This would include loading a file, inputting an infix regular expression to get a postfix and an option to use that postfix regular expression and search through a file. After a few videos being watch on the subject, my menu was implemented exactly how I wanted it.
 
 
 
