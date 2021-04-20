@@ -3,10 +3,11 @@
 # G00366614@gmit.ie
 import os
 
+
 def menu():
     """Displays the menu to the user"""
     print("[1]Load a File")
-    print("[2]")
+    print("[2]Input Infix")
     print("[3]")
     print("[0]Exit program")
 
@@ -35,6 +36,59 @@ def loadFile():
     f.close()
 
 
+def shunt(infix):
+    """Convert Infix expressions to postfix"""
+    # eventual output
+
+    postfix = ""
+    # the shunting yard operator stack
+    stack = ""
+    # operator precedence
+    prec = {'*': 100, '.': 90, '|': 80}
+
+    # Loop through the input character at a time
+    for c in infix:
+        print(f"FOR:   c: {c}\tpostfix:  {postfix}\tstack: {stack}")
+        # c is an operator
+        if c in {'*', '.', '|'}:
+            # Check what is on the stack
+            while len(stack) > 0 and stack[-1] != '(' and prec[stack[-1]] >= prec[c]:
+                # Move operator at top of stack to output
+                postfix = postfix + stack[-1]
+                # remove operator from stack
+                stack = stack[:-1]
+            # push c to stack
+            stack = stack + c
+        elif c == '(':
+            # Push c to the stack
+            stack = stack + c
+        elif c == ')':
+            while stack[-1] != "(":
+                # Move operator at top of stack to output
+                postfix = postfix + stack[-1]
+                # remove operator from stack
+                stack = stack[:-1]
+             # remove open bracket  from stack
+            stack = stack[:-1]
+        # c is a non-special
+        else:
+
+            postfix = postfix + c
+    while len(stack) != 0:
+        print(f"While:   c: {c}\tpostfix:  {postfix}\tstack: {stack}")
+        # Move operator at top of stack to output
+        postfix = postfix + stack[-1]
+        # remove operator from stack
+        stack = stack[:-1]
+    return postfix
+
+
+def infixInput():
+        infix = input("Enter an infix expression ")
+        print(f"Infix: {infix}") 
+        print(f"PostFix: {shunt(infix)}")
+        print()
+
 # Menu Call and option logic
 menu()
 option = int(input("Enter your option "))
@@ -43,7 +97,7 @@ while option != 0:
     if option == 1:
         loadFile()
     elif option == 2:
-        print("This is option 2")
+        infixInput()
     elif option == 3:
         print("This is option 3")
     else:
@@ -55,6 +109,3 @@ while option != 0:
 
 print()
 print("--Exiting Program--")
-
-
-
