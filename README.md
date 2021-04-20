@@ -37,6 +37,8 @@ From lab content, the basics of python were explained well and the concept of in
 #### Menu Implementation 
 After I got reading my file in working, I decided that having a menu for the user to choose from a list of options would suit my program well. This would include loading a file, inputting an infix regular expression to get a postfix and an option to use that postfix regular expression and search through a file. After a few videos being watch on the subject, my menu was implemented exactly how I wanted it.
 
+#### Shunting yard Algorithm Implementation
+Once the menu was implemented, next was to take an infix expression into a postfix expression. This was where my revision of the labs had aided me as we had covered how to convert an infix to postfix in lab content. I reviewed the code to make sure that everything inside the algorithm would apply nicely to my script. After that, I placed the code inside a function and added it to my menu.
 
 
 ## Answered Questions
