@@ -40,6 +40,9 @@ After I got reading my file in working, I decided that having a menu for the use
 #### Shunting yard Algorithm Implementation
 Once the menu was implemented, next was to take an infix expression into a postfix expression. This was where my revision of the labs had aided me as we had covered how to convert an infix to postfix in lab content. I reviewed the code to make sure that everything inside the algorithm would apply nicely to my script. After that, I placed the code inside a function and added it to my menu.
 
+#### Thompsons Construction Implementation 
+Having implemented the shunting yard algorithm, I had to take the returned postfix expression and convert it into a Non-Finite Automata. Using Thompsons construction from the lab content, I added it into the same function as my shunting yard algorithm and used the same function call in the menu. 
+
 
 ## Answered Questions
 ### What is a regular expression?
