@@ -1,3 +1,5 @@
-a.(b.b)*.a 
-1.(0.0)*.1
-r'F:/Documents/College/Third Year/Semester 2/Graph Theory/graph-theory-project/input.txt'
+aa b 
+abba ab 
+aba abba bb 
+a bb aba
+1234

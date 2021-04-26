@@ -16,6 +16,19 @@ class State():
         self.arrows = arrows
         self.accept = accept
 
+    def followEs(self):
+        """The set of states that are gotten from following this state and all its e arrows"""
+        # Include this state in the returned set
+        states = {self}
+        # If this state has e arrows, i,e label us None.
+        if self.label is None:
+            # Loop through this states arrows.
+            for state in self.arrows:
+                # Incorperate that state's earrow states in states
+                states = (states | state.followEs())
+            # returns the set of states
+            return states
+
 
 class NFA:
     """A non-deterministic finite automaton"""
@@ -24,11 +37,32 @@ class NFA:
         self.start = start
         self.end = end
 
+    def match(self, s):
+        """Return true if this NFA instance matches the string s."""
+        # list of previous states that we are still in
+        previous = self.start.followEs
+        # Loop through the string, a character at a time
+        for c in s:
+            # Start with an empty set of current states
+            current = set()
+            # loop through the previous states
+            for state in previous:
+                # Check if there is a c arrow from state.
+                if state.label == c:
+
+                    # Add followEs for next state
+                    current = (current | state.arrows[0].followEs())
+            # replace previous with current
+            previous = current
+        # if the final state is in previous, that return true. false otherwise
+        return (self.end in previous)
+
 
 def menu():
     """Displays the menu to the user"""
     print("[1]Load a File")
     print("[2]Input Regular Expression")
+    print("[3]Search file with regex")
     print("[0]Exit program")
 
 
@@ -50,10 +84,11 @@ def loadFile():
     print("Outputting the file: ")
     # Open the file and read it
     with open(filepath) as f:
-        contents = f.readlines()
+        contents = f.read()
 
     print(contents)
     f.close()
+    return contents
 
 
 def shunt(infix):
@@ -101,6 +136,7 @@ def shunt(infix):
         # remove operator from stack
         stack = stack[:-1]
     return postfix
+
 
 def re_to_nfa(postfix):
     # stack for nfas
@@ -176,31 +212,67 @@ def re_to_nfa(postfix):
             # NFA to the nfa stack
             stack.append(nfa)
 
-    return stack[0]
+    if len(stack) != 1:
+        return None
+    else:
+        return stack[0]
 
-def RegInput():
-    infix = input("Enter an infix expression ")
+
+def RegInput(file):
+    infix = "(a.b|b*)"
     postfix = shunt(infix)
+    NonFA = re_to_nfa(postfix)
     print(f"Infix: {infix}")
-    print(f"PostFix: {shunt(infix)}")
+    print(f"PostFix: {postfix}")
     print()
-    print(f"NFA: {postfix}")
+    print(f"NFA: {NonFA}")
+
+    for word in file:
+        print(word)
+
+        for s in word():
+            print("test " + s)
+            match = NonFA.match(s)
+            print(f"Match '{s}': {NonFA.match(s)}")
+        print()
+
+
+def Search(file, regex):
+    nfa = re_to_nfa(regex)
+    print(nfa)
 
 
 # Menu Call and option logic
-menu()
-option = int(input("Enter your option "))
-
-while option != 0:
-    if option == 1:
-        loadFile()
-    elif option == 2:
-        RegInput()
-    else:
-        print("Invalid Option")
-    print()
+if __name__ == "__main__":
     menu()
     option = int(input("Enter your option "))
 
-print()
-print("--Exiting Program--")
+    while option != 0:
+        if option == 1:
+            contents = loadFile()
+        elif option == 2:
+            
+
+            for word in contents:
+                infix = "(a.b|b*)"
+                postfix = shunt(infix)
+                NonFA = re_to_nfa(postfix)
+                print(f"Infix: {infix}")
+                print(f"PostFix: {postfix}")
+                print()
+                print(f"NFA: {NonFA}")
+                for s in word:
+                    print("test " + s)
+                    match = NonFA.match(s)
+                    print(f"Match '{s}': {NonFA.match(s)}")
+                print()
+        elif option == 3:
+            print("poo")
+        else:
+            print("Invalid Option")
+        print()
+        menu()
+        option = int(input("Enter your option "))
+
+    print()
+    print("--Exiting Program--")
