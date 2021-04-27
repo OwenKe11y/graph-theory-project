@@ -60,6 +60,16 @@ Once the menu was implemented, next was to take an infix expression into a postf
 #### Thompsons Construction Implementation 
 Having implemented the shunting yard algorithm, I had to take the returned postfix expression and convert it into a Non-Finite Automata. Using Thompsons construction from the lab content, I added it into the same function as my shunting yard algorithm and used the same function call in the menu. 
 
+#### Putting it all together with the match function 
+After reviewing the latest lab video that was uploaded, I adapted my code to include the match functionality. With this, the converted NFA using the shunting yard algorithm and thompsons consrtuction would be compared to the file that was inputted, outputting if the regular expression matched with any text in the file. However, many problems arose when implementing this function and I ha dto rework how my menu operated. After an embarrassing amount of time attempting to fix the bug by double checking the 3 latest labs, I finally managed to make the match function work, thus completing the main functionality of the project.
+
+#### Extras 
+A few extra bit of functionality were added to my program to make it feel unique and fleshed out. Heres a quick list of small things I've added:
+* Error handling on menu 
+* Error handling for inputting a non existant file 
+* Outputs the number of matches when searching with a regex
+* Console gets cleared so the CLI doesn't get cluttered after each input. This works for UNIX based systems aswell as Windows.
+
 
 ## Answered Questions
 ### What is a regular expression?
@@ -118,4 +128,7 @@ https://www.pythontutorial.net/python-basics/python-read-text-file/
 
 Creating a Menu:
 https://www.youtube.com/watch?v=63nw00JqHo0
+
+Clearing the screen, depending on the os:
+https://www.tutorialspoint.com/how-to-clear-screen-in-python#:~:text=In%20Python%20sometimes%20we%20have,screen%20by%20pressing%20Control%20%2B%20l%20.
 
