@@ -27,7 +27,7 @@ class State():
                 # Incorperate that state's earrow states in states
                 states = (states | state.followEs())
             # returns the set of states
-            return states
+        return states
 
 
 class NFA:
@@ -40,7 +40,7 @@ class NFA:
     def match(self, s):
         """Return true if this NFA instance matches the string s."""
         # list of previous states that we are still in
-        previous = self.start.followEs
+        previous = self.start.followEs()
         # Loop through the string, a character at a time
         for c in s:
             # Start with an empty set of current states
@@ -56,6 +56,17 @@ class NFA:
             previous = current
         # if the final state is in previous, that return true. false otherwise
         return (self.end in previous)
+
+
+
+def screen_clear():
+    """Simple method for clearing the screen depending on the platform"""
+   # for mac and linux(here, os.name is 'posix')
+    if os.name == 'posix':
+        _ = os.system('clear')
+    else:
+        # for windows platfrom
+        _ = os.system('cls')
 
 
 def menu():
@@ -76,19 +87,13 @@ def loadFile():
     # If the file doesn't exist just ask the user again
     while not os.path.isfile(filepath):
         print("Whoops! No such file")
-
+        filepath = input("Enter the file path to your .txt file: ")
+        filepathextension = 'txt'
+        os.path.join(filepath, "*."+filepathextension)
     # Outputs the file path for the user
     print("You have entered: " + filepath)
 
-    # Prints out the file
-    print("Outputting the file: ")
-    # Open the file and read it
-    with open(filepath) as f:
-        contents = f.read()
-
-    print(contents)
-    f.close()
-    return contents
+    return filepath
 
 
 def shunt(infix):
@@ -103,7 +108,6 @@ def shunt(infix):
 
     # Loop through the input character at a time
     for c in infix:
-        print(f"FOR:   c: {c}\tpostfix:  {postfix}\tstack: {stack}")
         # c is an operator
         if c in {'*', '.', '|'}:
             # Check what is on the stack
@@ -130,7 +134,6 @@ def shunt(infix):
 
             postfix = postfix + c
     while len(stack) != 0:
-        print(f"While:   c: {c}\tpostfix:  {postfix}\tstack: {stack}")
         # Move operator at top of stack to output
         postfix = postfix + stack[-1]
         # remove operator from stack
@@ -219,27 +222,27 @@ def re_to_nfa(postfix):
 
 
 def RegInput(file):
-    infix = "(a.b|b*)"
-    postfix = shunt(infix)
-    NonFA = re_to_nfa(postfix)
-    print(f"Infix: {infix}")
-    print(f"PostFix: {postfix}")
-    print()
-    print(f"NFA: {NonFA}")
 
-    for word in file:
-        print(word)
+    infix = input("Enter an infix expression ")
+    count = 0
+    with open(file, 'r') as f:
+        for line in f:
+            
+            postfix = shunt(infix)
+            NonFA = re_to_nfa(postfix)
+            #print(f"Infix: {infix}")
+            #print(f"PostFix: {postfix}")
+            # print()
+            #print(f"NFA: {NonFA}")
+            for word in line.split():
 
-        for s in word():
-            print("test " + s)
-            match = NonFA.match(s)
-            print(f"Match '{s}': {NonFA.match(s)}")
-        print()
-
-
-def Search(file, regex):
-    nfa = re_to_nfa(regex)
-    print(nfa)
+                match = NonFA.match(word)
+                if match == True:
+                    count = count + 1
+                print(f"Match '{word}': {match}")
+            print()
+            print(f"Number of matches: {count}")
+            print()
 
 
 # Menu Call and option logic
@@ -249,27 +252,15 @@ if __name__ == "__main__":
 
     while option != 0:
         if option == 1:
-            contents = loadFile()
+            screen_clear()
+            filepath = loadFile()
         elif option == 2:
-            
-
-            for word in contents:
-                infix = "(a.b|b*)"
-                postfix = shunt(infix)
-                NonFA = re_to_nfa(postfix)
-                print(f"Infix: {infix}")
-                print(f"PostFix: {postfix}")
-                print()
-                print(f"NFA: {NonFA}")
-                for s in word:
-                    print("test " + s)
-                    match = NonFA.match(s)
-                    print(f"Match '{s}': {NonFA.match(s)}")
-                print()
-        elif option == 3:
-            print("poo")
+            screen_clear()
+            RegInput(filepath)
         else:
+            screen_clear()
             print("Invalid Option")
+            
         print()
         menu()
         option = int(input("Enter your option "))

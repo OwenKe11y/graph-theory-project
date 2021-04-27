@@ -1,5 +1,1 @@
-aa b 
-abba ab 
-aba abba bb 
-a bb aba
-1234
+aa a aba
