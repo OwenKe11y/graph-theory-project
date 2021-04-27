@@ -17,13 +17,30 @@ Research has been conducted to understand the following:
 * Understand how to test the regular expression so that it works on a sensible example list of inputs
 
 ## Instructions 
-...
+This project can be run from the windows command prompt, however it was developed using a vitual instance of Debian.
+
+Firstly the user must clone this repository onto their desktop into a new folder. Once all the files are downloaded, navigate to the programs root directory.
+```
+git clone https://github.com/OwenKe11y/graph-theory-project
+cd graph-theory-project
+```
+the program can be ran by executing the following code
+```
+python3 regex.py
+```
+From here a menu will display, prompting the user for an input from a menu. The user has 3 options they are to:
+* Input a text file, a text file is provided named **"input.txt"**
+* Enter a regular expression.
+* Exit the program.
+
+The inputted regular expression will automatically search through the inputted file. If no file is entered, the program will prompt the user they have failed to provide an input file.
+
 
 ## Algorithm Explaination
 ...
 
 
-## Independent Research
+## Project Research and Development
 This section details the thoughts and troubles the developer faced throughout the creation of this project. Here the developer logs key points that were learned to complete the project as well as answer the questions in the next section. The developers thoughts are detailed below.
 
 #### Project start and preparation 
@@ -63,7 +80,7 @@ The formation of regular expressions had a huge impact on the computing world, a
 *	extract substrings form structured strings
 *	search / replace / rearrange parts of the string
 *	split a string into tokens
-*	
+
 All of these come up regularly when doing data preparation work [[4]](#references). 
 
 For our Graph Theory project, we were tasked with write a program in the Python 3 programming language to search a text file using a regular expression. Our program must take in a regular expression to search a text file and out put the lines of the file matching the regular expression.
