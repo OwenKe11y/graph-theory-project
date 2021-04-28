@@ -16,6 +16,8 @@ Research has been conducted to understand the following:
 * Understand the term "regular expression" and how it can be applied to the project.
 * Understand how to test the regular expression so that it works on a sensible example list of inputs
 
+This introduction was taken directly from the project brief for ease of use and review purposes
+
 ## Instructions 
 This project can be run from the windows command prompt, however it was developed using a vitual instance of Debian.
 
@@ -33,12 +35,36 @@ From here a menu will display, prompting the user for an input from a menu. The 
 * Enter a regular expression.
 * Exit the program.
 
+![Menu](https://github.com/OwenKe11y/graph-theory-labs/blob/main/images/MenuGT.png?raw=true)
+
 The inputted regular expression will automatically search through the inputted file. If no file is entered, the program will prompt the user they have failed to provide an input file.
 
 
-## Algorithm Explaination
-...
 
+
+## Algorithm Explaination
+My program operates using two main algorithms to process an inputted regular expression, those two being the shunting yard algorithm and thompsons construction. These two algorithms were focused heavily upon in my lab content and is the backbone to this script. Here, I will explain step by step the processes my program does at each given point and explain how these two algorithms apply.
+
+### Program start and input
+When the script is executed, the user is prompted to input a choice for the menu. Since a file hasn't been selected, the user only has option 1 and 0 to select from, as option 1 inputs a text file and option 0 exits the program. Once an input has been made for the text file, the inputted file is taken in by the next function which allows the user to then input a regular expression to search through that text file. Once the user has pressed enter, the main algorithm is called and the user recieves a match or no match.
+
+### The Algorithm
+#### Shunting Yard Algorithm 
+When the user enters an input for a regular expression, the shunt() function is called which takes in an infix expression. The shunt function converts infix expressions to a postfix expression. It loops through the input one character at a time to look for an operator that hold precedence; being Concatenation( . ), Kleene star( * ) or Union( | ). If the input was none one of those characters it pushes it to the output, however if the input was one of those characaters, it pushes the operater to the operator stack. After reading the expression, pop the operators off the stack and add them to the output. Here is a visual representation of what the shunting yard algorithm does:
+
+![Menu](https://github.com/OwenKe11y/graph-theory-labs/blob/main/images/Shunting.png?raw=true)
+
+#### Thompsons Construction
+Once a postfix has been constructed, the next step is to use that postfix expression and construct a Non-deterministic Finite Automaton or NFA. This NFA will recognise the same language as the regular expression. This algorithm does different things to construct the NFA depending on the character that was read. The function loops over the expression character by character to determine if there is an operator or a non-special character.  
+* For a non-special character, it pushes the following fragment to the stack. 
+* For concatination,  pop two fragments from the stack and push the following instead.
+* For Kleene star, pop a fragment from the stack and push the following instead.
+* For Union, pop a fragment from the stack and push the following instead.
+
+After reading the expression, the output is an object which contains the NFA.
+
+### Matching
+After constructing the NFA, this can be used for our match method. For every word in every line of text in our text file, we call match to return whether or not we've found a match. In order to cycle through each word, we deconstruct the line into each word using the [.split()](https://www.w3schools.com/python/ref_string_split.asp) method to find words seperated by spaces. If the match returns true, add it to a counter. Once the match has finished executing, a counter for the number of matches can be found. 
 
 ## Project Research and Development
 This section details the thoughts and troubles the developer faced throughout the creation of this project. Here the developer logs key points that were learned to complete the project as well as answer the questions in the next section. The developers thoughts are detailed below.
@@ -76,14 +102,14 @@ A few extra bit of functionality were added to my program to make it feel unique
 
 During the duration of this Graph Theory module, one of the key components to completing the project was to understand the term “regular expression” and what it means in relation to our project.
 
-Before we could even attempt our script file, a solid understanding of regular expressions was needed to produce a high-quality script. Using resources from online websites as well as the lecture videos provided in the course, I managed to construct a reasonable understanding of regular expressions and how to apply them to my project. 
+Before we could even attempt our script file, a solid understanding of regular expressions was needed to produce a high-quality script. Using resources from online websites as well as the lecture videos provided in the course, I managed to construct a reasonable understanding of regular expressions and how to apply it to my project. 
 
 Essentially, a regular expression, or regex, is a string of text that allows you to create patterns that help match, locate, and manage text [[1]](#references). Each character in a regular expression is either a metacharacter which has a special meaning, or a regular character that has a literal meaning. Each of these characters is a character in the string describing its pattern.
 
 A simple example of this would be the following:
 If we want to find a reference to a particular year, say 1877, in a document, it’s easy enough to search for that single date. But if we want to find any references to years in latter half of the 19th century, it is impractical to search several dozen times for 1850, 1851, 1852, etc., in turn. By using regular expressions we can use a concise pattern like “18[5-9][0-9]” to effectively match any year from 1850 to 1899 [[2]](#references). 
 
-The history of regular expressions originates in 1951, where mathematician Stephen Cole Kleene described a model, detailing how the human nervous system works, with an algebra notation that he called regular sets/regular expression. Regular expressions first use in the field of computer science dates to 1968, where Ken Thompson a mathematician, implemented regular expression inside the text editor called ed. Alfred Aho’s, a computer scientist, extended Ken Thompson’s ed text editor with a new functionalities and modified syntax named egrep — extended grep. His program was able to translate any regular expression to a deterministic finite automaton [[3]](#references). Put simply, a deterministic finite automaton or DFA is a finite-state machine that accepts or rejects a given string of symbols. 
+The history of regular expressions originates in 1951, where mathematician Stephen Cole Kleene described a model, detailing how the human nervous system works, with an algebra notation that he called regular sets/regular expression. Regular expressions first use in the field of computer science dates to 1968, where Ken Thompson a mathematician, implemented regular expression inside the text editor called ed. Alfred Aho, a computer scientist, extended Ken Thompson’s ed text editor with new functionalities and modified syntax named egrep — extended grep. His program was able to translate any regular expression to a deterministic finite automaton [[3]](#references). Put simply, a deterministic finite automaton or DFA is a finite-state machine that accepts or rejects a given string of symbols. 
 
 The formation of regular expressions had a huge impact on the computing world, as they used in any scenario that benefits from full or partial pattern matches on strings. Some of the common use cases for regular expressions include:
 * verify the structure of strings
@@ -93,12 +119,10 @@ The formation of regular expressions had a huge impact on the computing world, a
 
 All of these come up regularly when doing data preparation work [[4]](#references). 
 
-For our Graph Theory project, we were tasked with write a program in the Python 3 programming language to search a text file using a regular expression. Our program must take in a regular expression to search a text file and out put the lines of the file matching the regular expression.
+For our Graph Theory project, we were tasked with writing a program in the Python 3 programming language to search a text file using a regular expression. Our program must take in a regular expression to search a text file and out put the lines of the file matching the regular expression.
 
 Having learned that a regular expression is string of text used to create patterns to help match text, I was confident knowing how to apply it to my script file. 
  
-
-
 ### How do regular expressions differ across implementations?
 
 ### Can all formal languages be encoded as regular expressions?
@@ -132,3 +156,5 @@ https://www.youtube.com/watch?v=63nw00JqHo0
 Clearing the screen, depending on the os:
 https://www.tutorialspoint.com/how-to-clear-screen-in-python#:~:text=In%20Python%20sometimes%20we%20have,screen%20by%20pressing%20Control%20%2B%20l%20.
 
+Seperating each word:
+https://www.w3schools.com/python/ref_string_split.asp
