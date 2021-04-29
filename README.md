@@ -52,7 +52,7 @@ When the script is executed, the user is prompted to input a choice for the menu
 #### Shunting Yard Algorithm 
 When the user enters an input for a regular expression, the shunt() function is called which takes in an infix expression. The shunt function converts infix expressions to a postfix expression. It loops through the input one character at a time to look for an operator that hold precedence; being Concatenation( . ), Kleene star( * ) or Union( | ). If the input was none one of those characters it pushes it to the output, however if the input was one of those characaters, it pushes the operater to the operator stack. After reading the expression, pop the operators off the stack and add them to the output. Here is a visual representation of what the shunting yard algorithm does:
 
-![Menu](https://github.com/OwenKe11y/graph-theory-labs/blob/main/images/Shunting.png?raw=true)
+![Shunting](https://github.com/OwenKe11y/graph-theory-labs/blob/main/images/Shunting.png?raw=true)
 
 #### Thompsons Construction
 Once a postfix has been constructed, the next step is to use that postfix expression and construct a Non-deterministic Finite Automaton or NFA. This NFA will recognise the same language as the regular expression. This algorithm does different things to construct the NFA depending on the character that was read. The function loops over the expression character by character to determine if there is an operator or a non-special character.  
@@ -60,6 +60,8 @@ Once a postfix has been constructed, the next step is to use that postfix expres
 * For concatination,  pop two fragments from the stack and push the following instead.
 * For Kleene star, pop a fragment from the stack and push the following instead.
 * For Union, pop a fragment from the stack and push the following instead.
+
+![Thomspon](https://github.com/OwenKe11y/graph-theory-labs/blob/main/images/Thompsons.png?raw=true)
 
 After reading the expression, the output is an object which contains the NFA.
 
@@ -124,11 +126,68 @@ For our Graph Theory project, we were tasked with writing a program in the Pytho
 Having learned that a regular expression is string of text used to create patterns to help match text, I was confident knowing how to apply it to my script file. 
  
 ### How do regular expressions differ across implementations?
+As stated above, my definition of a regular expression would be "is a string of text that allows you to create patterns that help match, locate, and manage text. Each character in a regular expression is either a metacharacter which has a special meaning, or a regular character that has a literal meaning. Each of these characters is a character in the string describing its pattern." However, depending on the language or the program, regular expressions can differ between them.
+
+Here, I’ll explain how regular expressions differ between implementations of programs and languages and give examples of them.
+The differences in implementations are usually the way special characters are handled and occasionally substituted. This means that a special character inside one implementation may be slightly, or even drastically different to how it handles in another [[5]](#references).
+
+A quick example of this would be the differences between Visual Studio Code and Visual Studio. If we were given the following string:
+```
+line1
+line2
+```
+And given the following regex:
+```
+^(.+)$
+```
+With the following replacement:
+```
+$1
+```
+The regex’s operation means find something that starts with any character with one or more occurrences. The $number language element includes the last substring matched by the number capturing group in the replacement string, where number is the index of the capturing group.
+
+In VSCode, the output would be 
+```
+"line1",
+"line2",
+```
+However, in Visual Studio the output would be
+```
+"line1
+",
+"line2
+",
+```
+This is because of the slight difference in both regex engines. VSCode uses a different flavour of regex compared to Visual Studios .NET regex engine. In VSCode regex patterns, a dot . matches any char but any **line break** character. In .NET regex used in Visual Studio, a dot matches any char but a **newline** character. 
+
+Very slight discrepancies exist on every platform that uses regular expressions and there are many many more examples of slight differences between platforms and languages. However, some regex's meanings can be drastically different to more convential regex engines, such is the case with Vim and PERL regex engines.
+
+Taken directly from the Vim documentation [[6]](#references), it states:
+```
+Vim and Perl handle newline characters inside a string a bit differently:
+
+In Perl, ^ and $ only match at the very beginning and end of the text,
+by default, but you can set the 'm' flag, which lets them match at
+embedded newlines as well.
+
+On the other hand, Vim's ^ and $ always match at embedded newlines, and
+you get two separate atoms, \%^ and \%$, which only match at the very
+start and end of the text, respectively.  Vim solves the second problem
+by giving you the \_ "modifier":  put it in front of a . or a character
+class, and they will match newlines as well.
+```
+In conclusion, regex's are not predefined and there is not an unanimous agreement on the syntex of regex's. Every language's regex engine may be based on anothers regex engine or every platform may take features from another. The fact is that not every regex engine is the same. 
 
 ### Can all formal languages be encoded as regular expressions?
+Before we can answer this question, we must first identify what a formal language is. 
 
-## Conclusions 
-...
+A formal language is a mathematical construction. They are syntax without meaning. It is meant to study the structure of sets of strings defined formally, without usually attaching meaning to those strings. 
+
+This concept makes up the basis of a Turing Machine. Alan Turing, created a concept known as an automaton which is a hypothetical machine. A Turing machine is an automaton which is the simplist form of computing which Turing could come up with. The function of a Turing Machine is that it takes in an input, change one symbol at a time from that input and moves left or right with a finite set of rules. 
+
+
+![Turing](https://github.com/OwenKe11y/graph-theory-labs/blob/main/images/TurningMachine.png?raw=true) ![Turing](https://github.com/OwenKe11y/graph-theory-labs/blob/main/images/Alan.jpg?raw=true)
+Illustration of a Turing Machine
 
 ## References 
 **[1]** Hope, C., 2020. What is a Regex (Regular Expression)?. 
@@ -143,7 +202,13 @@ Medium. Available at: <https://medium.com/@minisha.mit/regular-expression-part-1
 **[4]** Chodnicki, S., 2019. Everything you need to know about Regular Expressions. [online] 
 Medium. Available at: <https://towardsdatascience.com/everything-you-need-to-know-about-regular-expressions-8f622fe10b03> [Accessed 25 April 2021].
 
+**[5]** https://stackoverflow.com/questions/20919403/difference-between-and-in-python-regex
+
+**[6]** http://vimdoc.sourceforge.net/htmldoc/pattern.html#perl-patterns
+
 ## Resources 
+Here is a list of resources I used to complete this project.
+
 Learing about strings in python:
 https://docs.python.org/2/reference/lexical_analysis.html#string-literals
 
@@ -158,3 +223,9 @@ https://www.tutorialspoint.com/how-to-clear-screen-in-python#:~:text=In%20Python
 
 Seperating each word:
 https://www.w3schools.com/python/ref_string_split.asp
+
+Regex Spread Sheet:
+http://www.greenend.org.uk/rjk/tech/regexp.html
+
+Regex Flavour Comparison:
+http://www.regular-expressions.info/refflavors.html
