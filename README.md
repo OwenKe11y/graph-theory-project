@@ -30,7 +30,7 @@ the program can be ran by executing the following code
 ```
 python3 regex.py
 ```
-From here a menu will display, prompting the user for an input from a menu. The user has 3 options they are to:
+From here a menu will display, prompting the user for an input from a menu. The user has 3 options. They are to:
 * Input a text file, a text file is provided named **"input.txt"**
 * Enter a regular expression.
 * Exit the program.
@@ -38,6 +38,13 @@ From here a menu will display, prompting the user for an input from a menu. The 
 ![Menu](https://github.com/OwenKe11y/graph-theory-labs/blob/main/images/MenuGT.png?raw=true)
 
 The inputted regular expression will automatically search through the inputted file. If no file is entered, the program will prompt the user they have failed to provide an input file.
+
+The sample input file contains the entirety of the novel "Frankenstein" by Mary Shelley. A sample regular expression would be the following:
+```
+m.o*.d
+```
+This searches the entirey of the book for the word "mood" and outputs the number of matches.
+
 
 
 
@@ -61,7 +68,7 @@ Once a postfix has been constructed, the next step is to use that postfix expres
 * For Kleene star, pop a fragment from the stack and push the following instead.
 * For Union, pop a fragment from the stack and push the following instead.
 
-![Thomspon](https://github.com/OwenKe11y/graph-theory-labs/blob/main/images/Thompsons.png?raw=true)
+![Thomspon](https://github.com/OwenKe11y/graph-theory-labs/blob/main/images/Thompsons.PNG?raw=true)
 
 After reading the expression, the output is an object which contains the NFA.
 
@@ -183,11 +190,27 @@ Before we can answer this question, we must first identify what a formal languag
 
 A formal language is a mathematical construction. They are syntax without meaning. It is meant to study the structure of sets of strings defined formally, without usually attaching meaning to those strings. 
 
-This concept makes up the basis of a Turing Machine. Alan Turing, created a concept known as an automaton which is a hypothetical machine. A Turing machine is an automaton which is the simplist form of computing which Turing could come up with. The function of a Turing Machine is that it takes in an input, change one symbol at a time from that input and moves left or right with a finite set of rules. 
+This concept makes up the basis of a Turing machine. Alan Turing, created a concept known as an automaton which is a hypothetical machine. A Turing machine is an automaton which is the simplist form of computing which Turing could come up with. The function of a Turing Machine is that it takes in an input, change one symbol at a time from that input and moves left or right with a finite set of rules. 
 
 
-![Turing](https://github.com/OwenKe11y/graph-theory-labs/blob/main/images/TurningMachine.png?raw=true) ![Turing](https://github.com/OwenKe11y/graph-theory-labs/blob/main/images/Alan.jpg?raw=true)
-Illustration of a Turing Machine
+<img src="https://github.com/OwenKe11y/graph-theory-labs/blob/main/images/TuringMachine.png?raw=true" alt="Machine" width="400" height="250">
+
+Illustration of a Turing machine
+
+The connection between these two concepts is that Turing machines can be used to _define_ formal languages.
+
+For a language, L, if there exists a Turing machine that halts if and only if its input belongs to L, then the language is called Turing-recognizable. Some languages cannot be defined by any Turing machine, which means they are not-computable - no finite process can decide whether an arbitrary string belongs to the language or not.
+
+Formal languages are not the same as Turing machines, but the Turing recognizability does have an interesting place in the study of formal languages. In the [Chomsky hierarchy](https://en.wikipedia.org/wiki/Chomsky_hierarchy#:~:text=In%20formal%20language%20theory%2C%20computer,by%20Noam%20Chomsky%20in%201956.), a Type-0 language is a language that can be enumerated by any formal grammar, and this turns out to be equivalent to being recognizable by a Turing machine. Formal grammars and Turing machines are just two of many models of computation that are all equally powerful.
+
+<img src="https://github.com/OwenKe11y/graph-theory-labs/blob/main/images/Alan.jpg?raw=true" alt="Turing" width="250" height="250">
+
+Alan Turning
+
+#### So the question remains, can formal languages, or Turing machines be encoded with regular expressions? 
+All this means is are regular expressions a Turing complete language? Regular expressions are not Turing complete. This is because regular expressions can be turned into a DFA which I explained earlier in this document. DFAs are not Turing complete because as an input string travels between two states, its letters are used up and can never be accessed again. Some key aspects of a Turing Machine are that it can move back and forth and access parts of the input string that it has already visited similar to how programs can write to memory. Anything that a DFA can do, a Turing machine can do. But a Turing machine can determine much more sophisticated languages than a DFA with its added capabilities, so DFAs are not Turing complete.
+
+In conclusion, not all formal languages can be encoded as regular expressions. 
 
 ## References 
 **[1]** Hope, C., 2020. What is a Regex (Regular Expression)?. 
@@ -229,3 +252,9 @@ http://www.greenend.org.uk/rjk/tech/regexp.html
 
 Regex Flavour Comparison:
 http://www.regular-expressions.info/refflavors.html
+
+Are Turing machines and formal languages the same?:
+https://cs.stackexchange.com/questions/62668/are-turing-machines-and-formal-languages-the-same-mathematical-object#
+
+Are regular expressions Turing Complete?:
+https://www.quora.com/Are-regular-expressions-a-Turing-complete-language
